@@ -11,4 +11,7 @@ router.get("/", moviesController.getMovies);
 // Define routes for movies
 router.get("/top", moviesController.getTopMovies);
 
+// Define routes for movie detail
+router.get("/:id", moviesController.getMovieDetails);
+
 export default router;

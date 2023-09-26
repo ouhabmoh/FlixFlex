@@ -2,6 +2,21 @@
 
 import movieService from "../services/movies-service.js";
 
+// Get movie detail
+const getMovieDetails = async (req, res) => {
+	try {
+		const movie_id = req.params.id;
+
+		const movie = await movieService.getMovieDetails(movie_id);
+
+		res.status(200).json(movie);
+	} catch (error) {
+		res.status(500).json({
+			error: "An error occurred while fetching movies.",
+		});
+	}
+};
+
 // Get a batch of movies
 const getMovies = async (req, res) => {
 	try {
@@ -37,4 +52,5 @@ const getTopMovies = async (req, res) => {
 export default {
 	getMovies,
 	getTopMovies,
+	getMovieDetails,
 };

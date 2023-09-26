@@ -2,7 +2,22 @@ import moviedb from "./movieDB-service.js"; // Import the MovieDB service
 import calculatePaginationIndexes from "../utils/pagination.js"; // Import the utility function
 
 class MoviesService {
-	// Fetch a batch of movies and series
+	// Fetch movie details
+	async getMovieDetails(movie_id) {
+		try {
+			const response = await moviedb.movieInfo({
+				id: movie_id,
+				language: "en-US",
+			});
+
+			return response;
+		} catch (error) {
+			console.log(error);
+			throw new Error("An error occurred while fetching movie data.");
+		}
+	}
+
+	// Fetch a batch of movies
 	async getMovies(page, limit) {
 		const { pageToFetch, startIndex, endIndex } =
 			calculatePaginationIndexes(page, limit);
