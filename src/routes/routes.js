@@ -1,6 +1,7 @@
 import express from "express";
 import authRouter from "./auth-routes.js";
 import usersRouter from "./user-routes.js";
+import moviesRouter from "./movies-routes.js";
 const router = express.Router();
 
 // Mount the authentication router
@@ -8,6 +9,10 @@ router.use("/auth", authRouter);
 
 // Mount the users router
 router.use("/users", usersRouter);
+
+// Mount the movies router
+router.use("/movies", moviesRouter);
+
 
 // Define a default route (catch-all route)
 router.use((req, res) => {
