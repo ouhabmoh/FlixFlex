@@ -8,4 +8,7 @@ const router = express.Router();
 // Define routes for movies
 router.get("/", moviesController.getMovies);
 
+// Define routes for movies
+router.get("/top", moviesController.getTopMovies);
+
 export default router;

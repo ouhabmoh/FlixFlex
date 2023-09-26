@@ -21,6 +21,26 @@ class MoviesService {
 			throw new Error("An error occurred while fetching movie data.");
 		}
 	}
+
+	// Fetch the top 5 movies
+	async getTopMovies(page, limit) {
+		const { pageToFetch, startIndex, endIndex } =
+			calculatePaginationIndexes(page, limit);
+		try {
+			const response = await moviedb.movieTopRated({
+				page: pageToFetch,
+				include_adult: false,
+				language: "en-US",
+			});
+
+			const movies = response.results.slice(startIndex, endIndex);
+			return movies;
+		} catch (error) {
+			throw new Error(
+				"An error occurred while fetching the top movies."
+			);
+		}
+	}
 }
 
 export default new MoviesService();
