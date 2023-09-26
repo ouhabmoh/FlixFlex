@@ -1,5 +1,3 @@
-// controllers/searchController.js
-
 import searchService from "../services/search-service.js"; // Import the search service
 
 // Search for movies and series by query
@@ -17,11 +15,13 @@ const searchMoviesAndSeries = async (req, res) => {
 
 		const results = await searchService.searchMoviesAndSeries(
 			query,
-			page
+			page,
+			limit
 		);
 
 		res.status(200).json(results);
 	} catch (error) {
+		console.error(error);
 		res.status(500).json({
 			error: "An error occurred while searching for movies and series.",
 		});

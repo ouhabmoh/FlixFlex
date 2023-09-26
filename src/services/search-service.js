@@ -1,5 +1,5 @@
 import moviedb from "./movieDB-service.js"; // Import the MovieDB service
-
+import calculatePaginationIndexes from "../utils/pagination.js"; // Import the utility function
 // Search for movies and series by query
 const searchMoviesAndSeries = async (query, page, limit) => {
 	const { pageToFetch, startIndex, endIndex } = calculatePaginationIndexes(

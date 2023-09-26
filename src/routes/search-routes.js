@@ -1,5 +1,3 @@
-// routes/searchRoutes.js
-
 import express from "express";
 import searchController from "../controllers/search-controller.js";
 
