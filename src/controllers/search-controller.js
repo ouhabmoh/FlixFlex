@@ -8,6 +8,7 @@ const searchMoviesAndSeries = async (req, res) => {
 		console.log(req.query);
 		const query = req.query.query;
 		const page = req.query.page || 1; // Get the page query parameter (default to 1)
+		const limit = req.query.limit || 10; // Get the limit query parameter (default to 10)
 		if (!query) {
 			return res
 				.status(400)

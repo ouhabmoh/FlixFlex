@@ -1,7 +1,7 @@
 import moviedb from "./movieDB-service.js"; // Import the MovieDB service
 
 // Search for movies and series by query
-const searchMoviesAndSeries = async (query, page) => {
+const searchMoviesAndSeries = async (query, page, limit) => {
 	const { pageToFetch, startIndex, endIndex } = calculatePaginationIndexes(
 		page,
 		limit
