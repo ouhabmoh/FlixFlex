@@ -11,7 +11,6 @@ class MoviesService {
 			});
 
 			const movies = response.results.slice(batchSize);
-
 			return movies;
 		} catch (error) {
 			console.log(error);

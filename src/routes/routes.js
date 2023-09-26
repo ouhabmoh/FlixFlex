@@ -2,6 +2,7 @@ import express from "express";
 import authRouter from "./auth-routes.js";
 import usersRouter from "./user-routes.js";
 import moviesRouter from "./movies-routes.js";
+import searchRouter from "./search-routes.js";
 const router = express.Router();
 
 // Mount the authentication router
@@ -13,6 +14,8 @@ router.use("/users", usersRouter);
 // Mount the movies router
 router.use("/movies", moviesRouter);
 
+// Mount the search router
+router.use("/search", searchRouter);
 
 // Define a default route (catch-all route)
 router.use((req, res) => {
