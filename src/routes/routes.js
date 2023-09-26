@@ -2,6 +2,7 @@ import express from "express";
 import authRouter from "./auth-routes.js";
 import usersRouter from "./user-routes.js";
 import moviesRouter from "./movies-routes.js";
+import seriesRouter from "./series-routes.js";
 import searchRouter from "./search-routes.js";
 const router = express.Router();
 
@@ -13,6 +14,9 @@ router.use("/users", usersRouter);
 
 // Mount the movies router
 router.use("/movies", moviesRouter);
+
+// Mount the movies router
+router.use("/series", seriesRouter);
 
 // Mount the search router
 router.use("/search", searchRouter);

@@ -1,5 +1,3 @@
-// controllers/movieController.js
-
 import movieService from "../services/movies-service.js";
 
 // Get movie detail

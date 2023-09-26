@@ -1,5 +1,3 @@
-// routes/movieRoutes.js
-
 import express from "express";
 import moviesController from "../controllers/movies-controller.js";
 
