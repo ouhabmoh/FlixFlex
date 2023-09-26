@@ -56,6 +56,26 @@ class MoviesService {
 			);
 		}
 	}
+
+	// Fetch movie Trailer
+	async getMovieTrailer(movie_id) {
+		try {
+			const response = await moviedb.movieVideos({
+				id: movie_id,
+				language: "en-US",
+			});
+
+			// Filter results to include only trailers
+			const trailers = response.results.filter(
+				(result) => result.type === "Trailer"
+			);
+
+			return trailers;
+		} catch (error) {
+			console.log(error);
+			throw new Error("An error occurred while fetching movie data.");
+		}
+	}
 }
 
 export default new MoviesService();

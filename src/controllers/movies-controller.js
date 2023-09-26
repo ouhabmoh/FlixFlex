@@ -49,8 +49,23 @@ const getTopMovies = async (req, res) => {
 	}
 };
 
+// Get movie detail
+const getMovieTrailer = async (req, res) => {
+	try {
+		const movie_id = req.params.id;
+
+		const trailers = await movieService.getMovieTrailer(movie_id);
+
+		res.status(200).json(trailers);
+	} catch (error) {
+		res.status(500).json({
+			error: "An error occurred while fetching movies.",
+		});
+	}
+};
 export default {
 	getMovies,
 	getTopMovies,
 	getMovieDetails,
+	getMovieTrailer,
 };
