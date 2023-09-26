@@ -7,14 +7,17 @@ const searchMoviesAndSeries = async (req, res) => {
 	try {
 		console.log(req.query);
 		const query = req.query.query;
-
+		const page = req.query.page || 1; // Get the page query parameter (default to 1)
 		if (!query) {
 			return res
 				.status(400)
 				.json({ error: "Query parameter is required." });
 		}
 
-		const results = await searchService.searchMoviesAndSeries(query);
+		const results = await searchService.searchMoviesAndSeries(
+			query,
+			page
+		);
 
 		res.status(200).json(results);
 	} catch (error) {

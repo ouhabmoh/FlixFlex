@@ -6,9 +6,9 @@ import movieService from "../services/movies-service.js";
 const getMovies = async (req, res) => {
 	try {
 		const page = req.query.page || 1; // Get the page query parameter (default to 1)
-		const batchSize = req.query.batchSize || 10; // Get the batchSize query parameter (default to 10)
+		const limit = req.query.limit || 10; // Get the limit query parameter (default to 10)
 
-		const movies = await movieService.getMovies(page, batchSize);
+		const movies = await movieService.getMovies(page, limit);
 
 		res.status(200).json(movies);
 	} catch (error) {
