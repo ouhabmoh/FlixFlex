@@ -1,5 +1,8 @@
 import movieDB from "./movieDB-service.js"; // Import the serieDB service
-import calculatePaginationIndexes from "../utils/pagination.js"; // Import the utility function
+import {
+	calculatePaginationIndexes,
+	calculateTotalResults,
+} from "../utils/pagination.js"; // Import the utility function
 
 class SeriesService {
 	// Fetch serie details
@@ -20,7 +23,7 @@ class SeriesService {
 	// Fetch a batch of Series
 	async getSeries(page, limit) {
 		const { pageToFetch, startIndex, endIndex } =
-			calculatePaginationIndexes(page, limit);
+			calculatePaginationIndexes(page);
 		try {
 			const response = await movieDB.discoverTv({
 				page: pageToFetch,
@@ -28,9 +31,20 @@ class SeriesService {
 				language: "en-US",
 			});
 
-			const Series = response.results.slice(startIndex, endIndex);
-			console.log(Series.length);
-			return Series;
+			const series = response.results.slice(startIndex, endIndex);
+			const totalResults = response.total_results;
+			const totalPages = calculateTotalResults(
+				totalResults,
+				response.total_pages,
+				page
+			);
+			return {
+				page,
+				series,
+				totalPages,
+
+				totalResults,
+			};
 		} catch (error) {
 			console.log(error);
 			throw new Error("An error occurred while fetching serie data.");
@@ -38,9 +52,9 @@ class SeriesService {
 	}
 
 	// Fetch the top 5 Series
-	async getTopSeries(page, limit) {
+	async getTopSeries(page) {
 		const { pageToFetch, startIndex, endIndex } =
-			calculatePaginationIndexes(page, limit);
+			calculatePaginationIndexes(page);
 		try {
 			const response = await movieDB.tvTopRated({
 				page: pageToFetch,
@@ -48,8 +62,20 @@ class SeriesService {
 				language: "en-US",
 			});
 
-			const Series = response.results.slice(startIndex, endIndex);
-			return Series;
+			const series = response.results.slice(startIndex, endIndex);
+			const totalResults = response.total_results;
+			const totalPages = calculateTotalResults(
+				totalResults,
+				response.total_pages,
+				page
+			);
+			return {
+				page,
+				series,
+				totalPages,
+
+				totalResults,
+			};
 		} catch (error) {
 			throw new Error(
 				"An error occurred while fetching the top Series."

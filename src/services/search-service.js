@@ -1,11 +1,13 @@
 import moviedb from "./movieDB-service.js"; // Import the MovieDB service
-import calculatePaginationIndexes from "../utils/pagination.js"; // Import the utility function
+import {
+	calculatePaginationIndexes,
+	calculateTotalResults,
+} from "../utils/pagination.js"; // Import the utility function
 // Search for movies and series by query
-const searchMoviesAndSeries = async (query, page, limit) => {
-	const { pageToFetch, startIndex, endIndex } = calculatePaginationIndexes(
-		page,
-		limit
-	);
+const searchMoviesAndSeries = async (query, page) => {
+	const { pageToFetch, startIndex, endIndex } =
+		calculatePaginationIndexes(page);
+	console.log(startIndex, endIndex);
 	try {
 		const response = await moviedb.searchMovie({
 			query,
@@ -13,8 +15,18 @@ const searchMoviesAndSeries = async (query, page, limit) => {
 			include_adult: false,
 			language: "en-US",
 		});
+		const totalResults = response.total_results;
+		return {
+			page,
+			results: response.results.slice(startIndex, endIndex),
+			totalPages: calculateTotalResults(
+				totalResults,
+				response.total_pages,
+				page
+			),
 
-		return response.results.slice(startIndex, endIndex);
+			totalResults,
+		};
 	} catch (error) {
 		console.log(error);
 		throw new Error(

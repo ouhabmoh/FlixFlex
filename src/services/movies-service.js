@@ -1,6 +1,8 @@
 import moviedb from "./movieDB-service.js"; // Import the MovieDB service
-import calculatePaginationIndexes from "../utils/pagination.js"; // Import the utility function
-
+import {
+	calculatePaginationIndexes,
+	calculateTotalResults,
+} from "../utils/pagination.js"; // Import the utility function
 class MoviesService {
 	// Fetch movie details
 	async getMovieDetails(movie_id) {
@@ -18,9 +20,9 @@ class MoviesService {
 	}
 
 	// Fetch a batch of movies
-	async getMovies(page, limit) {
+	async getMovies(page) {
 		const { pageToFetch, startIndex, endIndex } =
-			calculatePaginationIndexes(page, limit);
+			calculatePaginationIndexes(page);
 		try {
 			const response = await moviedb.discoverMovie({
 				page: pageToFetch,
@@ -29,8 +31,19 @@ class MoviesService {
 			});
 
 			const movies = response.results.slice(startIndex, endIndex);
-			console.log(movies.length);
-			return movies;
+			const totalResults = response.total_results;
+			const totalPages = calculateTotalResults(
+				totalResults,
+				response.total_pages,
+				page
+			);
+			return {
+				page,
+				movies,
+				totalPages,
+
+				totalResults,
+			};
 		} catch (error) {
 			console.log(error);
 			throw new Error("An error occurred while fetching movie data.");
@@ -38,9 +51,9 @@ class MoviesService {
 	}
 
 	// Fetch the top 5 movies
-	async getTopMovies(page, limit) {
+	async getTopMovies(page) {
 		const { pageToFetch, startIndex, endIndex } =
-			calculatePaginationIndexes(page, limit);
+			calculatePaginationIndexes(page);
 		try {
 			const response = await moviedb.movieTopRated({
 				page: pageToFetch,
@@ -49,7 +62,19 @@ class MoviesService {
 			});
 
 			const movies = response.results.slice(startIndex, endIndex);
-			return movies;
+			const totalResults = response.total_results;
+			const totalPages = calculateTotalResults(
+				totalResults,
+				response.total_pages,
+				page
+			);
+			return {
+				page,
+				movies,
+				totalPages,
+
+				totalResults,
+			};
 		} catch (error) {
 			throw new Error(
 				"An error occurred while fetching the top movies."

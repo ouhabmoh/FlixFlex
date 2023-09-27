@@ -19,9 +19,8 @@ const getMovieDetails = async (req, res) => {
 const getMovies = async (req, res) => {
 	try {
 		const page = req.query.page || 1; // Get the page query parameter (default to 1)
-		const limit = req.query.limit || 10; // Get the limit query parameter (default to 10)
 
-		const movies = await movieService.getMovies(page, limit);
+		const movies = await movieService.getMovies(page);
 
 		res.status(200).json(movies);
 	} catch (error) {
@@ -35,9 +34,8 @@ const getMovies = async (req, res) => {
 const getTopMovies = async (req, res) => {
 	try {
 		const page = req.query.page || 1; // Get the page query parameter (default to 1)
-		const limit = req.query.limit || 5; // Get the limit query parameter (default to 10)
 
-		const movies = await movieService.getTopMovies(page, limit);
+		const movies = await movieService.getTopMovies(page);
 
 		res.status(200).json(movies);
 	} catch (error) {

@@ -19,9 +19,8 @@ const getSerieDetails = async (req, res) => {
 const getSeries = async (req, res) => {
 	try {
 		const page = req.query.page || 1; // Get the page query parameter (default to 1)
-		const limit = req.query.limit || 10; // Get the limit query parameter (default to 10)
 
-		const series = await serieService.getSeries(page, limit);
+		const series = await serieService.getSeries(page);
 
 		res.status(200).json(series);
 	} catch (error) {
@@ -35,9 +34,8 @@ const getSeries = async (req, res) => {
 const getTopSeries = async (req, res) => {
 	try {
 		const page = req.query.page || 1; // Get the page query parameter (default to 1)
-		const limit = req.query.limit || 5; // Get the limit query parameter (default to 10)
 
-		const series = await serieService.getTopSeries(page, limit);
+		const series = await serieService.getTopSeries(page);
 
 		res.status(200).json(series);
 	} catch (error) {
