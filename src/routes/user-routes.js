@@ -21,8 +21,8 @@ router.post(
 	userController.createUser
 );
 
-// Define a route for updating a user (accessible to admins)
-router.put("/:id", isAdmin, userController.updateUser);
+// Define a route for a user updating his profile (accessible to logged-in users)
+router.put("/", isLoggedIn, userController.updateUser);
 
 // Define a route for deleting a user (accessible to admins)
 router.delete("/:id", isAdmin, userController.deleteUser);

@@ -38,13 +38,37 @@ export const createUser = async (req, res) => {
 	}
 };
 
+export const changePassword = async (req, res) => {
+	const userId = req.user._id;
+	const { oldPassword, newPassword } = req.body;
+
+	try {
+		const result = await userService.changePassword(
+			userId,
+			oldPassword,
+			newPassword
+		);
+
+		if (!result.success) {
+			return res
+				.status(result.status || 500)
+				.json({ message: result.message });
+		}
+
+		return res.status(200).json({ message: result.message });
+	} catch (error) {
+		console.error(error);
+		return res.status(500).json({ message: "Server error" });
+	}
+};
+
 // the updateUser is still quite simple and not complete ,there is still a lot to add, verification, password update.
 
 export const updateUser = async (req, res) => {
 	try {
 		const updatedUser = await userService.updateUser(
 			req.params.id,
-			req.body
+			req.updates
 		);
 		if (updatedUser) {
 			res.status(200).json({ message: "User updated" });
@@ -52,7 +76,14 @@ export const updateUser = async (req, res) => {
 			res.status(404).json({ error: "User not found" });
 		}
 	} catch (error) {
-		res.status(500).json({ error: "Internal server error" });
+		// Handle the case where the username already exists
+		if (error.message === "Username already exists") {
+			return res
+				.status(400)
+				.json({ message: "Username is already taken" });
+		}
+
+		return res.status(500).json({ message: "Internal server error" });
 	}
 };
 

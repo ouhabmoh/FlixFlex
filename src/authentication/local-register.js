@@ -16,10 +16,7 @@ passport.use(
 
 		async function (req, username, password, done) {
 			try {
-				const email = req.body.email;
-
 				const newUser = await userService.createUser({
-					email,
 					username,
 					password,
 				});
@@ -28,7 +25,7 @@ passport.use(
 				}
 
 				return done(null, false, {
-					message: "Email/username is already taken.",
+					message: "Username is already taken.",
 				});
 			} catch (error) {
 				return done(error);

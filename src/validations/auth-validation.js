@@ -8,8 +8,8 @@ export const loginValidationRules = () => {
 			.withMessage("Username is required")
 			.isString()
 			.withMessage("Username must be a string")
-			.isLength({ min: 3, max: 100 })
-			.withMessage("Username must be between 3 and 100 characters"),
+			.isLength({ min: 3, max: 20 })
+			.withMessage("Username must be between 3 and 20 characters"),
 
 		body("password")
 			.bail()
@@ -22,19 +22,13 @@ export const loginValidationRules = () => {
 
 export const registerValidationRules = () => {
 	return [
-		body("email")
-			.notEmpty()
-			.withMessage("Email is required")
-			.isEmail()
-			.withMessage("Invalid email format"),
-
 		body("username")
 			.notEmpty()
 			.withMessage("Username is required")
 			.isString()
 			.withMessage("Username must be a string")
-			.isLength({ min: 3, max: 100 })
-			.withMessage("Username must be between 3 and 100 characters"),
+			.isLength({ min: 3, max: 20 })
+			.withMessage("Username must be between 3 and 20 characters"),
 
 		body("password")
 			.notEmpty()
