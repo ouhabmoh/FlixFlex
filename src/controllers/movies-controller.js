@@ -52,7 +52,7 @@ const getMovieTrailer = async (req, res) => {
 
 		const trailers = await movieService.getMovieTrailer(movie_id);
 
-		res.status(200).json(trailers);
+		res.status(200).json({ trailers: trailers });
 	} catch (error) {
 		res.status(500).json({
 			error: "An error occurred while fetching movies.",
