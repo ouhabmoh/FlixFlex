@@ -60,7 +60,7 @@ class FavoritesService {
 							await this.movieService.getMovieDetails(
 								favorite.mediaId
 							);
-					} else if (favorite.mediaType === "series") {
+					} else if (favorite.mediaType === "serie") {
 						mediaDetails =
 							await this.seriesService.getSerieDetails(
 								favorite.mediaId

@@ -14,7 +14,7 @@ const favoriteSchema = new Schema({
 	},
 	mediaType: {
 		type: String,
-		enum: ["movie", "series"],
+		enum: ["movie", "serie"],
 		required: true,
 	},
 });
