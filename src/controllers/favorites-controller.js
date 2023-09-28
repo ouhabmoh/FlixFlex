@@ -31,10 +31,7 @@ export const removeFavorite = async (req, res, next) => {
 			mediaId,
 			mediaType
 		);
-		if (favorite)
-			res.status(204).send({
-				message: "Favorite removed successfully",
-			});
+		if (favorite) res.status(204).send();
 		else res.status(404).send({ message: "Favorite not found" });
 	} catch (error) {
 		res.status(500).json({
