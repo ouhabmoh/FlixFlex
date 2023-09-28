@@ -4,6 +4,7 @@ import { isAdmin } from "../middlewares/authorization-middleware.js";
 import { isLoggedIn } from "../middlewares/authentication-middleware.js";
 import { registerValidationRules } from "../validations/auth-validation.js";
 import { validate } from "../middlewares/validation-middleware.js";
+import { restrictUserUpdates } from "../middlewares/restrict-user-updates-middleware.js";
 const router = express.Router();
 
 // Define a route for getting all users (accessible to admins only)
@@ -22,7 +23,9 @@ router.post(
 );
 
 // Define a route for a user updating his profile (accessible to logged-in users)
-router.put("/", isLoggedIn, userController.updateUser);
+router.put("/", isLoggedIn, restrictUserUpdates, userController.updateUser);
+
+router.put("/change-password", isLoggedIn, userController.changePassword);
 
 // Define a route for deleting a user (accessible to admins)
 router.delete("/:id", isAdmin, userController.deleteUser);
