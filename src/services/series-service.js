@@ -62,7 +62,7 @@ class SeriesService {
 				language: "en-US",
 			});
 
-			const series = response.results.slice(startIndex, endIndex);
+			const series = response.results.slice(0, 5);
 			const totalResults = response.total_results;
 			const totalPages = calculateTotalResults(
 				totalResults,

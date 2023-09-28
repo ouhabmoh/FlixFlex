@@ -61,7 +61,7 @@ class MoviesService {
 				language: "en-US",
 			});
 
-			const movies = response.results.slice(startIndex, endIndex);
+			const movies = response.results.slice(0, 5);
 			const totalResults = response.total_results;
 			const totalPages = calculateTotalResults(
 				totalResults,
