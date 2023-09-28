@@ -1,4 +1,4 @@
-# FLIXFLEX Backend
+# FlixFlex Backend
 
 FlixFlex Backend is the robust and efficient RESTful API and database backend that powers the FlixFlex web application—a platform designed for movie and series enthusiasts. It facilitates a seamless user experience by offering a wide range of features, including user registration, movie and series listings, favorites management, search capabilities, and comprehensive movie/series details.
 
