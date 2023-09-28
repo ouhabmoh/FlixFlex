@@ -67,17 +67,21 @@ export const changePassword = async (req, res) => {
 export const updateUser = async (req, res) => {
 	try {
 		const updatedUser = await userService.updateUser(
-			req.params.id,
+			req.user._id,
 			req.updates
 		);
 		if (updatedUser) {
-			res.status(200).json({ message: "User updated" });
+			res.status(200).json({ message: "User updated", updatedUser });
 		} else {
 			res.status(404).json({ error: "User not found" });
 		}
 	} catch (error) {
+		console.log(error);
 		// Handle the case where the username already exists
-		if (error.message === "Username already exists") {
+		if (
+			error.message ===
+			"Unable to update user: Username already exists"
+		) {
 			return res
 				.status(400)
 				.json({ message: "Username is already taken" });
