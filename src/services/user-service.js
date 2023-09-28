@@ -9,7 +9,7 @@ class UserService {
 		return await User.findById(id).select(" _id username role");
 	}
 
-	async checkIfUsernameExists(email, username) {
+	async checkIfUsernameExists(username) {
 		return await User.findOne({
 			username,
 		});
